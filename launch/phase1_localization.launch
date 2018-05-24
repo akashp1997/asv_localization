@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<launch>
+
+	<!--Handles the sensors streams and their parsers -->
+	<include file="$(find asv_sensors)/launch/phase1_sensors.launch" />
+
+	<!--The GNSS/INS Filter Runs here-->
+	<node name="gnssins_localization" pkg="asv_localization" type="filter.py" />
+
+</launch>
