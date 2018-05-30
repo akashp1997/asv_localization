@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<launch>
+
+	<!--The GNSS/INS Filter Runs here-->
+	<node name="filter" pkg="asv_localization" type="filter" />
+
+	<node name="slam" pkg="gmapping" type="slam_gmapping">
+		<rosparam command="load" file="$(find asv_localization)/config/slam.yaml" />
+	</node>
+
+</launch>
