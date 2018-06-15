@@ -9,4 +9,14 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   tf2_ros
   gmapping
+  map_server
 )
+
+catkin_package(
+  CATKIN_DEPENDS geometry_msgs sensor_msgs tf2_ros nav_msgs gmapping map_server
+)
+
+
+install(DIRECTORY launch/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
+  PATTERN ".svn" EXCLUDE)

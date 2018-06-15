@@ -7,6 +7,7 @@ import sensor_msgs.msg
 import nav_msgs.msg
 import geometry_msgs.msg
 import tf2_ros
+import numpy as np
 
 #imu_data = sensor_msgs.msg.Imu()
 count = 0
@@ -68,8 +69,8 @@ def callback_fix(data):
 	if(fix_data.status.status>=0):
 		utm_co = utm.from_latlon(fix_data.latitude, fix_data.longitude)
 		#Uncomment before real testing
-		#odom_data.pose.pose.position.x = utm_co[0]
-		#odom_data.pose.pose.position.y = utm_co[1]
+		odom_data.pose.pose.position.x = utm_co[0]
+		odom_data.pose.pose.position.y = utm_co[1]
 		odom_data.pose.covariance[0] = fix_data.position_covariance[0]
 		odom_data.pose.covariance[7] = fix_data.position_covariance[4]
 		odom_data.pose.covariance[14] = fix_data.position_covariance[8]

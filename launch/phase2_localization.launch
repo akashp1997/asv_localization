@@ -8,4 +8,6 @@
 		<rosparam command="load" file="$(find asv_localization)/config/slam.yaml" />
 	</node>
 
+	<!--<node name="map_server" pkg="map_server" type="map_saver" args="-f mymap" />-->
+
 </launch>

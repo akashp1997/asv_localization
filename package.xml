@@ -12,6 +12,11 @@
   <build_depend>rospy</build_depend>
   <build_depend>tf2_ros</build_depend>
   <build_depend>gmapping</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>map_server</build_depend>
+
 
   <exec_depend>asv_sensors</exec_depend>
   <exec_depend>nav_msgs</exec_depend>
@@ -21,5 +26,6 @@
   <exec_depend>tf2_ros</exec_depend>
   <exec_depend>python-utm-pip</exec_depend>
   <exec_depend>gmapping</exec_depend>
+  <exec_depend>map_server</exec_depend>
 
 </package>
