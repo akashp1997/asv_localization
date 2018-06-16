@@ -5,54 +5,27 @@ import rospy
 epsilon = 0.01
 
 import sensor_msgs.msg
-import geometry_msgs.msg
 
 base_fix = sensor_msgs.msg.NavSatFix()
 #Change the type to Twist Stamped for real testing
-base_vel = geometry_msgs.msg.Vector3Stamped()
-
-fix = sensor_msgs.msg.NavSatFix()
-vel = geometry_msgs.msg.Vector3Stamped()
 
 pub_base_fix = rospy.Publisher("/fix", sensor_msgs.msg.NavSatFix, queue_size=10)
-pub_base_vel = rospy.Publisher("/vel", geometry_msgs.msg.Vector3Stamped, queue_size=10)
 
 def listener():
 	rospy.init_node("dgps")
-	rospy.Subscriber("/base_fix", sensor_msgs.msg.NavSatFix, callback, callback_args=0)
-	rospy.Subscriber("/base_vel", geometry_msgs.msg.Vector3Stamped, callback, callback_args=1)
-	rospy.Subscriber("/boat_fix", sensor_msgs.msg.NavSatFix, callback, callback_args=2)
-	rospy.Subscriber("/boat_vel", geometry_msgs.msg.Vector3Stamped, callback, callback_args=3)
+	rospy.Subscriber("/base_fix", sensor_msgs.msg.NavSatFix, callback, callback_args=False)
+	rospy.Subscriber("/boat_fix", sensor_msgs.msg.NavSatFix, callback, callback_args=True)
 	rospy.spin()
 
-def callback(data, args):
-	global base_vel, base_fix, fix, vel
-	if(args==0):
+def callback(data, flag):
+	global base_fix
+	if flag:
+		data.latitude -= base_fix.latitude
+		data.longitude -= base_fix.longitude
+		data.altitude -= base_fix.altitude
+		pub_base_fix.publish(data)
+	else:
 		base_fix = data
-	elif(args==1):
-		base_vel = data
-	elif(args==2):
-		fix = data
-	elif(args==3):
-		vel = data
-	merge_fix()
-	#merge_vel()
-	publish()
-
-def merge_fix():
-	global base_fix, fix
-	if abs(base_fix.header.stamp.to_sec()-fix.header.stamp.to_sec())<epsilon and abs(base_fix.latitude-fix.latitude)<0.01:
-		fix.status.status = 2
-		fix.latitude -= base_fix.latitude
-		fix.longitude -= base_fix.longitude
-		vel.vector.x -= base_vel.vector.x
-		vel.vector.y -= base_vel.vector.y
-		#vel.vector.z -= base_vel.vector.z
-
-def publish():
-	global fix, vel, pub_base_vel, pub_base_fix
-	pub_base_vel.publish(vel)
-	pub_base_fix.publish(fix)
 
 
 listener()
