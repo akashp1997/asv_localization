@@ -23,6 +23,10 @@ def callback(data, flag):
 		data.latitude -= base_fix.latitude
 		data.longitude -= base_fix.longitude
 		data.altitude -= base_fix.altitude
+		data.status.status = 2
+		data.position_covariance_type = 3
+		data.position_covariance = [data.position_covariance[i]-base_fix.position_covariance[i] for i in range(len(base_fix.position_covariance))]
+		#rospy.loginfo(data.position_covariance)
 		pub_base_fix.publish(data)
 	else:
 		base_fix = data

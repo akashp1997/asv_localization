@@ -27,7 +27,7 @@ def listener():
 	rospy.Subscriber("/imu_data", sensor_msgs.msg.Imu, callback_imu)
 	rospy.Subscriber("/fix", sensor_msgs.msg.NavSatFix, callback_fix)
 	#Make the data type Vector3Stamped for gazebo and TwistStamped for real testing
-	rospy.Subscriber("/vel", geometry_msgs.msg.Vector3Stamped, callback_vel)
+	rospy.Subscriber("/vel", geometry_msgs.msg.TwistStamped, callback_vel)
 	rospy.spin()
 
 def callback_imu(data):
@@ -79,9 +79,9 @@ def callback_fix(data):
 
 def callback_vel(data):
 	global odom_data
-	odom_data.twist.twist.linear.x = data.vector.x
-	odom_data.twist.twist.linear.y = data.vector.y
-	#odom_data.twist.twist.linear.z = data.twist.linear.z
+	odom_data.twist.twist.linear.x = data.twist.linear.x
+	odom_data.twist.twist.linear.y = data.twist.linear.y
+ 	#odom_data.twist.twist.linear.z = data.twist.linear.z
 	odom_data.header.stamp = data.header.stamp
 	publish_transform()
 
