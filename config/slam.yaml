@@ -1,37 +1,22 @@
-inverted_laser: false         #Invert Z-axis in lidar slamming
-throttle_scans: 1             #No of scans skipped per second
-base_frame: "base_link"       #Frame name used for robot's frame
-map_frame: "map"              #Frame name used for map frame
-odom_frame: "odom"            #Frame name used for external localization
-map_update_interval: 2.0      #Rate of update of map topic
-maxUrange: 40.0               #Maximum usable range of lidar
-sigma: 0.05                   #Sigma used by Greedy Endpoint Matching(unsure about what it does)
-kernelSize: 1                 #Kernel to look for correspondance
-lstep: 0.05                   #Optimization step in translation
-astep: 0.05                   #Optimization step in rotation
-iterations: 5                 #No of iterations of scanmatcher
-lsigma: 0.075                 #Sigma of the beam used for likelihood
-ogain: 3.0                    #Gain to be used for likelihood evaluation, for smoothing resampling
-lskip: 0                      #Take only every (n+1)th rays
-minimumScore: 0               #Score used to determine good matching
-srr: 0.1                      #Odometry error in t as f of t
-srt: 0.2                      #Odometry error in t as f of r
-str: 0.1                      #Odometry error in r as f of t
-srr: 0.2                      #Odometry error in r as f of r
-linearUpdate: 1               #Process a scan only after this much translation
-angularUpdate: 0.5            #Process a scan only after this much rotation
-temporalUpdate: 1.0           #Scan update timing
-resampleThreshold: 0.5        #Neff based resampling threshold
-particles: 30                 #No of particles in the filter
-xmin: 30                      #Initial map size in x
-ymin: 30                      #initial map size in y
-xmax: 60                      #Initial map size in x
-ymax: 80                      #initial map size in y
-delta: 0.05                   #Density of m^2/grid
-llsamplerange: 0.01           #Translational sampling range for likelihood
-llsamplestep: 0.01            #Translational sampling step for likelihood
-lasamplerange: 0.005          #Rotational sampling range for likelihood
-lasamplestep: 0.005           #Rotational sampling step for likelihood
-transform_publish_period: 0.5 #Map transform update interval
-occ_thresh: 0.25              #Map value set for occupied
-maxRange: 50.0                #Max range of sensor
+frame_id: lidar
+map_frame: map
+odom_frame: odom
+map_resolution: 0.10
+map_size: 220
+map_start_x: 0
+map_start_y: 0
+map_update_distance_thresh: 0.5
+map_update_angle_thresh: 0.4
+map_pub_period: 1
+map_multi_res_levels: 3
+update_factor_free: 0.7
+update_factor_occupied: 0.4
+laser_min_dist: 0.5
+laser_max_dist: 20.0
+laser_z_min_value: -1.0
+laser_z_max_value: 1.0
+pub_map_odom_transform: true
+output_timing: false
+scan_subscriber_queue_size: 5
+pub_map_scanmatch_transform: false
+tf_map_scanmatch_transform_frame_name: lidar
